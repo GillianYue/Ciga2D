@@ -14,7 +14,7 @@ public class AntQueen : MonoBehaviour
     public int fertilityBase; //base is the base number of ants generated per spawn
     public int numColonyAnts;
     public Image sanBar;
-    public Text sanPercentageTxt, sanMaxTxt, numAntsTxt, numAntsNestTxt;
+    public Text sanPercentageTxt, sanMaxTxt, numAntsTxt, numAntsNestTxt, debugTxt;
 
     public ArrayList groups; //each group is an empty gameObject being the parent of maximum 10 children ants (for ease of deleting)
     public GameObject AntPrefab;
@@ -48,10 +48,12 @@ public class AntQueen : MonoBehaviour
         numAntsTxt.text = numColonyAnts + "";
         numAntsNestTxt.text = numColonyAnts - numAway + "";
 
-        sendSlider.maxValue = numColonyAnts;
+        sendSlider.maxValue = numColonyAnts - numAway;
 
 
         this.transform.position = Vector3.up * Mathf.Cos(4*Time.time) * 0.1f;
+
+        debugTxt.text = groups.Count + "";
     }
 
     IEnumerator sanNaturalDecline()

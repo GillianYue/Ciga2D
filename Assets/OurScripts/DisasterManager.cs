@@ -41,12 +41,14 @@ public class DisasterManager : MonoBehaviour
             if (rand < bootWeight)
             {
                 GameObject boot = Instantiate(bootPrefab, new Vector3(x, y, 0), Quaternion.identity);
-                Debug.Log("boot!"+spawnMinX+" "+spawnMaxX+" "+spawnMinY+" "+spawnMaxY);
+                Debug.Log("boot!");
+                wipeOutNumAnts(0.5f);
             }
             else if (rand < stormWeight)
             {
                 GameObject storm = Instantiate(stormPrefab, new Vector3(x, y, 0), Quaternion.identity);
                 Debug.Log("storm!");
+                wipeOutNumAnts(0.3f);
             }
             else //enemy ants
             {
@@ -62,16 +64,17 @@ public class DisasterManager : MonoBehaviour
 
     public void wipeOutNumAnts(float percentage)
     {
-        int num = queen.numColonyAnts
+        int num = (int)((queen.numColonyAnts - queen.numAway) * percentage);
+        wipeOutNumAnts(num);
     }
 
     public void wipeOutNumAnts(int number)
     {
         int num = number;
         ArrayList g = queen.groups;
-
+        int count = 0;
         
-        while (num != 0)
+        while (num > 0)
         {
             if (g.Count == 0)
             {
@@ -83,7 +86,8 @@ public class DisasterManager : MonoBehaviour
             {
                 for (int n = 0; n < num; n++)
                 {
-                    Destroy(lastGroup.transform.GetChild(lastGroup.transform.childCount - 1).gameObject);
+                    Destroy(lastGroup.transform.GetChild(n).gameObject);
+                    count++;
                 }
 
                 num = 0; 
@@ -93,14 +97,13 @@ public class DisasterManager : MonoBehaviour
             else
             {
                 num -= lastGroup.transform.childCount;
+                count += lastGroup.transform.childCount;
                 Destroy(lastGroup);
                 g.RemoveAt(g.Count - 1); //also removing the group slot from the array
             }
         }
 
         queen.numColonyAnts -= number; //if reaching here, means there's more ants than required to wipe out
-
-        Debug.Log("supposedly wiped out " + number + " ants ");
 
 
     }
