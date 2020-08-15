@@ -94,8 +94,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 679c2d0d536878046906b171230ec5fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpd: 0.02
+  moveSpd: 11
   movementRange: 0.3
+  searchMoveSpd: 6
   destination: {x: 0, y: 0, z: 0}
   goingSomewhere: 0
   myMode: 0

@@ -16,10 +16,11 @@ public class AntQueen : MonoBehaviour
     public Image sanBar;
     public Text sanPercentageTxt, sanMaxTxt, numAntsTxt;
 
-    public ArrayList colony, groups; //each group is an empty gameObject being the parent of maximum 10 children ants (for ease of deleting)
+    public ArrayList groups; //each group is an empty gameObject being the parent of maximum 10 children ants (for ease of deleting)
     public GameObject AntPrefab;
     private float spawnMinX, spawnMaxX, spawnMinY, spawnMaxY;
     public BoxCollider2D spawnBounds;
+    public Slider sendSlider;
 
 
     void Start()
@@ -27,10 +28,11 @@ public class AntQueen : MonoBehaviour
         StartCoroutine(sanNaturalDecline());
         StartCoroutine(spawnAntsNatural());
 
-        colony = new ArrayList(); //arraylist of ants
         groups = new ArrayList();
         spawnMinX = spawnBounds.bounds.min.x; spawnMinY = spawnBounds.bounds.min.y;
         spawnMaxX = spawnBounds.bounds.max.x; spawnMaxY = spawnBounds.bounds.max.y;
+
+        sendSlider.minValue = 1;
     }
 
     void Update()
@@ -40,6 +42,8 @@ public class AntQueen : MonoBehaviour
         sanPercentageTxt.text = f*100 + "%";
         sanMaxTxt.text = (int) sanMax + "";
         numAntsTxt.text = numColonyAnts + "";
+
+        sendSlider.maxValue = numColonyAnts;
     }
 
     IEnumerator sanNaturalDecline()
@@ -60,7 +64,11 @@ public class AntQueen : MonoBehaviour
     {
         while (true)
         {
-            if (fertilityRate == 0) continue; //wait until not 0
+            if (fertilityRate == 0)
+            {
+                yield return new WaitForSeconds(0.1f);
+                continue;
+            } //wait until not 0
             yield return new WaitForSeconds(0.5f/ (fertilityRate*fertilityBoost)); //at rate of 1, will spawn every 0.1s
             for (int a = 0; a < fertilityBase; a++)
             {
@@ -102,10 +110,10 @@ public class AntQueen : MonoBehaviour
         float x = Random.Range(spawnMinX, spawnMaxX);
         float y = Random.Range(spawnMinY, spawnMaxY);
 
-        GameObject antObj = Instantiate(AntPrefab, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+        GameObject antObj = Instantiate(AntPrefab, new Vector3(x, y, 0), Quaternion.identity);
         Ant ant = antObj.GetComponent<Ant>();
-        ant.spawn(antObj.transform.position);
-        colony.Add(ant); numColonyAnts++;
+        ant.spawn();
+        numColonyAnts++;
 
         if (groups.Count != 0) {
             GameObject lastGroup = (GameObject)groups[groups.Count - 1];
