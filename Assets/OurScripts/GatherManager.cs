@@ -10,8 +10,8 @@ public class GatherManager : MonoBehaviour
 {
     public Slider sendSlider;
     public AntQueen queen;
-    
 
+    public GameObject[] packagePrefabs; 
     void Start()
     {
         
@@ -26,40 +26,45 @@ public class GatherManager : MonoBehaviour
     public void sendForExplore(int level)
     {
         int num = (int) sendSlider.value;
-        Debug.Log("sending " + num + " out ");
 
         ArrayList g = queen.groups;
 
         int groupCount = 1;
-        while (num != 0)
+        while (num > 0)
         {
             if (g.Count == 0 || g.Count - groupCount < 0)
             {
+                Debug.Log("not enough free ants in groups");
                 return; //no more ants!
             }
+            
             GameObject lastGroup = (GameObject)g[g.Count - groupCount];
-            if (num < lastGroup.transform.childCount)
-            {
-                for (int n = 1; n < num+1; n++)
-                {
-                   lastGroup.transform.GetChild(lastGroup.transform.childCount - n).GetComponent<Ant>().sendForSearch(level);
-                }
 
-                num = 0;
-                groupCount++;
-            }
-            else
-            {
-                num -= lastGroup.transform.childCount;
 
                 for (int n = 1; n < lastGroup.transform.childCount+1; n++)
                 {
-                    lastGroup.transform.GetChild(lastGroup.transform.childCount - n).GetComponent<Ant>().sendForSearch(level);
+                    Ant a = lastGroup.transform.GetChild(lastGroup.transform.childCount - n).GetComponent<Ant>();
+                    if (a.myMode.Equals(Ant.Mode.idle))
+                    {
+                        a.sendForSearch(level);
+                        Debug.Log("1");
+                        num--;
+                    if (num <= 0) return;
+                    }
                 }
                 groupCount++;
-            }
+  
         }
 
-         
+    }
+
+
+    public GameObject instantiatePackage(Transform parent, int type) //packageType
+    {
+        GameObject p = Instantiate(packagePrefabs[type], parent.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
+        p.transform.parent = parent;
+        p.transform.rotation = new Quaternion(0, 0, 0, 0);
+
+        return p;
     }
 }

@@ -14,7 +14,7 @@ public class AntQueen : MonoBehaviour
     public int fertilityBase; //base is the base number of ants generated per spawn
     public int numColonyAnts;
     public Image sanBar;
-    public Text sanPercentageTxt, sanMaxTxt, numAntsTxt;
+    public Text sanPercentageTxt, sanMaxTxt, numAntsTxt, numAntsNestTxt;
 
     public ArrayList groups; //each group is an empty gameObject being the parent of maximum 10 children ants (for ease of deleting)
     public GameObject AntPrefab;
@@ -22,6 +22,10 @@ public class AntQueen : MonoBehaviour
     public BoxCollider2D spawnBounds;
     public Slider sendSlider;
 
+    public int numAway;
+
+    public GatherManager gatherManager;
+    public DisasterManager disasterManager;
 
     void Start()
     {
@@ -42,8 +46,12 @@ public class AntQueen : MonoBehaviour
         sanPercentageTxt.text = f*100 + "%";
         sanMaxTxt.text = (int) sanMax + "";
         numAntsTxt.text = numColonyAnts + "";
+        numAntsNestTxt.text = numColonyAnts - numAway + "";
 
         sendSlider.maxValue = numColonyAnts;
+
+
+        this.transform.position = Vector3.up * Mathf.Cos(4*Time.time) * 0.1f;
     }
 
     IEnumerator sanNaturalDecline()
@@ -75,6 +83,17 @@ public class AntQueen : MonoBehaviour
                 spawnOneAnt();
             }
         }
+    }
+
+    public void addToSan(int boost)
+    {
+        if (san + boost > sanMax) san = sanMax;
+        else san = san + boost;
+    }
+
+    public void setSanMax(int newMax)
+    {
+        sanMax = newMax;
     }
 
     public void setFertilityRate(float rate)
@@ -112,7 +131,7 @@ public class AntQueen : MonoBehaviour
 
         GameObject antObj = Instantiate(AntPrefab, new Vector3(x, y, 0), Quaternion.identity);
         Ant ant = antObj.GetComponent<Ant>();
-        ant.spawn();
+        ant.spawn(this, gatherManager);
         numColonyAnts++;
 
         if (groups.Count != 0) {

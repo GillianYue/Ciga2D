@@ -5,15 +5,64 @@ using UnityEngine;
 public class DisasterManager : MonoBehaviour
 {
     public AntQueen queen;
+    public GameObject bootPrefab, stormPrefab, enemyAntPrefab;
+    public float bootWeight, stormWeight, enemyAntWeight;
+    public float disasterIntervalBase, disasterIntervalNoise, disasterRateBoost;
+
+    private float spawnMinX, spawnMaxX, spawnMinY, spawnMaxY;
+    public BoxCollider2D spawnBounds;
 
     void Start()
     {
-        
+        spawnMinX = spawnBounds.bounds.min.x; spawnMinY = spawnBounds.bounds.min.y;
+        spawnMaxX = spawnBounds.bounds.max.x; spawnMaxY = spawnBounds.bounds.max.y;
+
+        StartCoroutine(randomDisasterTimer());
     }
 
     void Update()
     {
         
+    }
+
+    private IEnumerator randomDisasterTimer()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds((disasterIntervalBase + Random.Range(-1 * disasterIntervalNoise, disasterIntervalNoise)) * disasterRateBoost);
+
+            float rand = Random.value;
+
+            float x = Random.Range(spawnMinX, spawnMaxX);
+            float y = Random.Range(spawnMinY, spawnMaxY);
+
+            //TODO: UI stuff
+
+            if (rand < bootWeight)
+            {
+                GameObject boot = Instantiate(bootPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                Debug.Log("boot!"+spawnMinX+" "+spawnMaxX+" "+spawnMinY+" "+spawnMaxY);
+            }
+            else if (rand < stormWeight)
+            {
+                GameObject storm = Instantiate(stormPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                Debug.Log("storm!");
+            }
+            else //enemy ants
+            {
+                GameObject boot = Instantiate(bootPrefab, new Vector3(x, y, 0), Quaternion.identity);
+                Debug.Log("enemy ants!");
+            }
+
+
+        }
+
+
+    }
+
+    public void wipeOutNumAnts(float percentage)
+    {
+        int num = queen.numColonyAnts
     }
 
     public void wipeOutNumAnts(int number)
@@ -53,7 +102,7 @@ public class DisasterManager : MonoBehaviour
 
         Debug.Log("supposedly wiped out " + number + " ants ");
 
-        //TODO: UI stuff
+
     }
 
 
