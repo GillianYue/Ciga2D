@@ -61,7 +61,7 @@ public class GatherManager : MonoBehaviour
 
     public GameObject instantiatePackage(Transform parent, int type) //packageType
     {
-        GameObject p = Instantiate(packagePrefabs[type], parent.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
+        GameObject p = Instantiate(packagePrefabs[type], parent.position + new Vector3(0, 0, 0), Quaternion.identity);
         p.transform.parent = parent;
         p.transform.rotation = new Quaternion(0, 0, 0, 0);
 

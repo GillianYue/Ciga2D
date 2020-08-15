@@ -17,12 +17,16 @@ public class DisasterManager : MonoBehaviour
         spawnMinX = spawnBounds.bounds.min.x; spawnMinY = spawnBounds.bounds.min.y;
         spawnMaxX = spawnBounds.bounds.max.x; spawnMaxY = spawnBounds.bounds.max.y;
 
-        StartCoroutine(randomDisasterTimer());
     }
 
     void Update()
     {
         
+    }
+
+    public void startGame()
+    {
+        StartCoroutine(randomDisasterTimer());
     }
 
     private IEnumerator randomDisasterTimer()

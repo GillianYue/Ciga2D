@@ -1,8 +1,8 @@
-[title=Cutscene_0_begin]
-*PlayerName*:Nice! You can start a talk using a button. This dialog window is also a button, you can click it to pass the talk!
-Girl:Exactly. This comportament is perfect for mobile games.
-*PlayerName*:Those arrows above our heads... They are also auto-created, right?
-Girl:Yes they are! RPGTalk smart pointer! Pretty useful for when you don't have the control to the exact character position.
+﻿[title=Cutscene_0_begin]
+蚁后: *打哈欠*
+工蚁: 陛下！请给我们指示！
+蚁后: 想买买买
+工蚁: 遵命！
 *PlayerName*:Pretty cool. The arrow indicating that the talk continues and the ability to follow characters are now snippets too, right? What else can they do?
 [save start=FollowUp_Cutscene_0_SaveNode_0_begin break=FollowUp_Cutscene_0_SaveNode_0_end data=FollowingSSQuestion mod=-1]
 [save start=FollowUp_Cutscene_0_SaveNode_1_begin break=FollowUp_Cutscene_0_SaveNode_1_end data=FollowingSSQuestion mod=0]

@@ -163,35 +163,35 @@ public class Ant : MonoBehaviour
             case 0: //normal kind
                 if (rand < 0.8f)
                 {
-                    myPackage = gatherManager.instantiatePackage(this.transform, 0);
+                    myPackage = gatherManager.instantiatePackage(mySprite, 0);
                 }else if (rand < 0.9f)
                 {
-                    myPackage = gatherManager.instantiatePackage(this.transform, 1);
+                    myPackage = gatherManager.instantiatePackage(mySprite, 1);
                 } //else gets nothing and simply returns
 
                 break;
             case 1:
                 if (rand < 0.4f)
                 {
-                    myPackage = gatherManager.instantiatePackage(this.transform, 0);
+                    myPackage = gatherManager.instantiatePackage(mySprite, 0);
                 }
                 else if (rand < 0.8f)
                 {
-                    myPackage = gatherManager.instantiatePackage(this.transform, 1);
+                    myPackage = gatherManager.instantiatePackage(mySprite, 1);
                 } //else gets nothing and simply returns
                 break;
             case 2:
                 if (rand < 0.2f)
                 {
-                    myPackage = gatherManager.instantiatePackage(this.transform, 0);
+                    myPackage = gatherManager.instantiatePackage(mySprite, 0);
                 }
                 else if (rand < 0.75f)
                 {
-                    myPackage = gatherManager.instantiatePackage(this.transform, 1);
+                    myPackage = gatherManager.instantiatePackage(mySprite, 1);
                 }
                 else
                 {
-                    myPackage = gatherManager.instantiatePackage(this.transform, 2);
+                    myPackage = gatherManager.instantiatePackage(mySprite, 2);
                 }
                 break;
             default: break;

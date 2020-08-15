@@ -27,10 +27,10 @@ public class AntQueen : MonoBehaviour
     public GatherManager gatherManager;
     public DisasterManager disasterManager;
 
+    public bool active = false;
+
     void Start()
     {
-        StartCoroutine(sanNaturalDecline());
-        StartCoroutine(spawnAntsNatural());
 
         groups = new ArrayList();
         spawnMinX = spawnBounds.bounds.min.x; spawnMinY = spawnBounds.bounds.min.y;
@@ -41,19 +41,31 @@ public class AntQueen : MonoBehaviour
 
     void Update()
     {
-        float f = sanRate();
-        sanBar.fillAmount = f;
-        sanPercentageTxt.text = f*100 + "%";
-        sanMaxTxt.text = (int) sanMax + "";
-        numAntsTxt.text = numColonyAnts + "";
-        numAntsNestTxt.text = numColonyAnts - numAway + "";
+        if (active)
+        {
+            float f = sanRate();
+            sanBar.fillAmount = f;
+            sanPercentageTxt.text = f * 100 + "%";
+            sanMaxTxt.text = (int)sanMax + "";
+            numAntsTxt.text = numColonyAnts + "";
+            numAntsNestTxt.text = numColonyAnts - numAway + "";
 
-        sendSlider.maxValue = numColonyAnts - numAway;
+            sendSlider.maxValue = numColonyAnts - numAway;
 
 
-        this.transform.position = Vector3.up * Mathf.Cos(4*Time.time) * 0.1f;
+            this.transform.position = Vector3.up * Mathf.Cos(4 * Time.time) * 0.1f;
 
-        debugTxt.text = groups.Count + "";
+            debugTxt.text = groups.Count + "";
+        }
+    }
+
+    public void startGame()
+    {
+        active = true;
+
+        StartCoroutine(sanNaturalDecline());
+        StartCoroutine(spawnAntsNatural());
+
     }
 
     IEnumerator sanNaturalDecline()
