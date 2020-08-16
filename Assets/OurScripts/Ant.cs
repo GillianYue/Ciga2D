@@ -23,6 +23,8 @@ public class Ant : MonoBehaviour
     public Animator myAnim;
     public Transform mySprite;
 
+    public bool numAwaySetTracker;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -162,7 +164,7 @@ public class Ant : MonoBehaviour
         setMode(Mode.search);
 
         queen.numAway++;
-
+        numAwaySetTracker = true;
 
         Vector2 ran = Random.insideUnitCircle;
         Vector3 dest;
@@ -238,6 +240,7 @@ public class Ant : MonoBehaviour
         if (myPackage != null) myPackage.GetComponent<disappear>().slowDisappear(queen);
 
         queen.numAway--;
+        numAwaySetTracker = false;
 
         setMode(Mode.idle);
     }
@@ -253,6 +256,7 @@ public class Ant : MonoBehaviour
     void OnDestroy()
     {
         if (myMode.Equals(Mode.guard)) queen.numOnGuard--;
+        if (numAwaySetTracker) queen.numAway--;
     }
 
     }

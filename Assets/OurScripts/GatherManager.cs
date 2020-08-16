@@ -99,7 +99,7 @@ public class GatherManager : MonoBehaviour
             for (int n = 1; n < lastGroup.transform.childCount + 1; n++)
             {
                 Ant a = lastGroup.transform.GetChild(lastGroup.transform.childCount - n).GetComponent<Ant>();
-                if (!a.myMode.Equals(Ant.Mode.search))
+                if (!a.myMode.Equals(Ant.Mode.search) && !a.myMode.Equals(Ant.Mode.guard))
                 {
                     a.guard();
                     num--;
@@ -132,7 +132,7 @@ public class GatherManager : MonoBehaviour
             for (int n = 1; n < lastGroup.transform.childCount + 1; n++)
             {
                 Ant a = lastGroup.transform.GetChild(lastGroup.transform.childCount - n).GetComponent<Ant>();
-                if (!a.myMode.Equals(Ant.Mode.search))
+                if (!a.myMode.Equals(Ant.Mode.search) && !a.myMode.Equals(Ant.Mode.entertain))
                 {
                     a.setMode(Ant.Mode.entertain);
                     num--;

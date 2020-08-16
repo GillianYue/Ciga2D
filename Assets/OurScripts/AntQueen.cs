@@ -63,9 +63,15 @@ public class AntQueen : MonoBehaviour
                 {
                     myAnim.SetInteger("state", 2);
                     sigh.Play();
+                    fertilityBoost = 0.8f;
                 }
-                else if (f > 0.8f) myAnim.SetInteger("state", 1);
-                else myAnim.SetInteger("state", 0);
+                else if (f > 0.8f) { myAnim.SetInteger("state", 1);
+                    fertilityBoost = 1.5f;
+                }
+                else { 
+                    myAnim.SetInteger("state", 0);
+                    fertilityBoost = 1;
+                }
             }
 
             sanMaxTxt.text = (int)sanMax + "";
@@ -73,7 +79,7 @@ public class AntQueen : MonoBehaviour
             numAntsNestTxt.text = numColonyAnts - numAway + "";
 
             sendSlider.maxValue = numColonyAnts - numAway;
-            guardNumText.text = numOnGuard + "";
+            guardNumText.text = ((numOnGuard > 0) ? numOnGuard:0) + "";
 
 
             this.transform.position = Vector3.up * Mathf.Cos(4 * Time.time) * 0.1f;

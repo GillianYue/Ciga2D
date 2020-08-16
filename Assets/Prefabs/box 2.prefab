@@ -95,5 +95,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   s: {fileID: 8421907177761073471}
-  mySanBoost: 4
+  mySanBoost: 5
   autoDestroy: 0

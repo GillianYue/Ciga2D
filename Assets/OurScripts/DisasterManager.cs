@@ -172,7 +172,7 @@ public class DisasterManager : MonoBehaviour
             }
         }
 
-        queen.numColonyAnts -= number; //if reaching here, means there's more ants than required to wipe out
+        queen.numColonyAnts -= count; //if reaching here, means there's more ants than required to wipe out
 
         StartCoroutine(infoTextLast("损失了" + count + "只蚂蚁！！", 2));
     }
@@ -200,7 +200,7 @@ public class DisasterManager : MonoBehaviour
             spawnOneEnemyAnt(group.transform);
         }
 
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(7);
         if (queen.numOnGuard >= numEnemy) StartCoroutine(infoTextLast("成功防守下了敌对蚂蚁的攻击！", 2));
         else
         {

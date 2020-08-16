@@ -7059,7 +7059,7 @@ MonoBehaviour:
   sanMax: 100
   san: 50
   sanDropRate: 1
-  fertilityRate: 0.4
+  fertilityRate: 0.5
   fertilityBoost: 1
   fertilityBase: 1
   numColonyAnts: 0
