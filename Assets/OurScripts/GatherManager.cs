@@ -111,6 +111,38 @@ public class GatherManager : MonoBehaviour
         }
     }
 
+    public void assignEntertain()
+    {
+        int num = (int)sendSlider.value;
+
+        ArrayList g = queen.groups;
+
+        int groupCount = 1;
+        while (num > 0)
+        {
+            if (g.Count == 0 || g.Count - groupCount < 0)
+            {
+                Debug.Log("not enough free ants in groups");
+                return; //no more ants!
+            }
+
+            GameObject lastGroup = (GameObject)g[g.Count - groupCount];
+
+
+            for (int n = 1; n < lastGroup.transform.childCount + 1; n++)
+            {
+                Ant a = lastGroup.transform.GetChild(lastGroup.transform.childCount - n).GetComponent<Ant>();
+                if (!a.myMode.Equals(Ant.Mode.search))
+                {
+                    a.setMode(Ant.Mode.entertain);
+                    num--;
+                    if (num <= 0) return;
+                }
+            }
+            groupCount++;
+
+        }
+    }
 
     public GameObject instantiatePackage(Transform parent, int type) //packageType
     {

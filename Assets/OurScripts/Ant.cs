@@ -9,7 +9,7 @@ public class Ant : MonoBehaviour
 
     public Vector3 destination;
 
-    public enum Mode { idle, search, guard };
+    public enum Mode { idle, search, guard, entertain };
     public Mode myMode = Mode.idle;
 
     private IEnumerator currentMoveTo, currentMode;
@@ -49,9 +49,23 @@ public class Ant : MonoBehaviour
                 currentMode = idle();
                 StartCoroutine(currentMode); 
                 break;
-
+            case Mode.entertain:
+                transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                myAnim.Play("antHop");
+                currentMode = entertain();
+                StartCoroutine(entertain());
+                break;
 
             default: break;
+        }
+    }
+
+    IEnumerator entertain()
+    {
+        while (myMode.Equals(Mode.entertain))
+        {
+            queen.addToSan(1);
+            yield return new WaitForSeconds(3);
         }
     }
 

@@ -194,12 +194,20 @@ public class DisasterManager : MonoBehaviour
         GameObject group = Instantiate(new GameObject());
         group.transform.parent = enemyAntsParent.transform;
 
-        for (int a = 0; a < enemySpawnNumber + Random.Range(-enemySpawnNoise, enemySpawnNoise); a++)
+        int numEnemy = enemySpawnNumber + Random.Range(-enemySpawnNoise, enemySpawnNoise);
+        for (int a = 0; a < numEnemy; a++)
         {
             spawnOneEnemyAnt(group.transform);
         }
 
         yield return new WaitForSeconds(10);
+        if (queen.numOnGuard >= numEnemy) StartCoroutine(infoTextLast("成功防守下了敌对蚂蚁的攻击！", 2));
+        else
+        {
+            int lost = numEnemy - queen.numOnGuard;
+            wipeOutNumAnts(lost);
+            StartCoroutine(infoTextLast("在战斗中损失了"+lost+"只蚂蚁...", 2));
+        }
         Destroy(group);
     }
 
