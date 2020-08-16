@@ -14,7 +14,7 @@ public class AntQueen : MonoBehaviour
     public int fertilityBase; //base is the base number of ants generated per spawn
     public int numColonyAnts;
     public Image sanBar;
-    public Text sanPercentageTxt, sanMaxTxt, numAntsTxt, numAntsNestTxt, debugTxt;
+    public Text sanPercentageTxt, sanMaxTxt, numAntsTxt, numAntsNestTxt, debugTxt, guardNumText;
 
     public ArrayList groups; //each group is an empty gameObject being the parent of maximum 10 children ants (for ease of deleting)
     public GameObject AntPrefab;
@@ -22,7 +22,7 @@ public class AntQueen : MonoBehaviour
     public BoxCollider2D spawnBounds;
     public Slider sendSlider;
 
-    public int numAway;
+    public int numAway, numOnGuard;
 
     public GatherManager gatherManager;
     public DisasterManager disasterManager;
@@ -51,6 +51,7 @@ public class AntQueen : MonoBehaviour
             numAntsNestTxt.text = numColonyAnts - numAway + "";
 
             sendSlider.maxValue = numColonyAnts - numAway;
+            guardNumText.text = numOnGuard + "";
 
 
             this.transform.position = Vector3.up * Mathf.Cos(4 * Time.time) * 0.1f;
@@ -136,6 +137,14 @@ public class AntQueen : MonoBehaviour
         if (sanMax != 0)
             return san / sanMax;
         else return 0;
+    }
+
+    public Vector3 randomCavePoint()
+    {
+        float x = Random.Range(spawnMinX, spawnMaxX);
+        float y = Random.Range(spawnMinY, spawnMaxY);
+
+        return new Vector3(x, y, 0);
     }
 
     public void spawnOneAnt()

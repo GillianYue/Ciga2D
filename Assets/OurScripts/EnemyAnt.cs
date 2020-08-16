@@ -14,6 +14,8 @@ public class EnemyAnt : MonoBehaviour
     public Animator myAnim;
     public Transform mySprite;
 
+    public disappear fade;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,8 +45,12 @@ public class EnemyAnt : MonoBehaviour
             float orig = transform.rotation.eulerAngles.z;
             float newZ = ((orig > 0) ? 1 : -1) * 180 - (-1 * orig);
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, newZ));
+            myAnim.SetBool("facingLeft", true);
         }
-        else mySprite.localScale = new Vector3(-1, 1, 1);
+        else { 
+            mySprite.localScale = new Vector3(-1, 1, 1);
+            myAnim.SetBool("facingLeft", false);
+        }
 
 
         float waitTime = 0.2f / spd;
@@ -57,9 +63,20 @@ public class EnemyAnt : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
         }
 
-        don[0] = true;
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         myAnim.SetBool("walk", false);
         myAnim.SetBool("attack", true);
+        myAnim.Play("antAttack");
+
+
+        StartCoroutine(fadeAway());
+        don[0] = true;
+    }
+
+    public IEnumerator fadeAway()
+    {
+        yield return new WaitForSeconds(3);
+        fade.simpleDisappear();
     }
 
     public void spawn()

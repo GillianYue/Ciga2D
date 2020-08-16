@@ -9,7 +9,7 @@ public class Ant : MonoBehaviour
 
     public Vector3 destination;
 
-    public enum Mode { idle, search };
+    public enum Mode { idle, search, guard };
     public Mode myMode = Mode.idle;
 
     private IEnumerator currentMoveTo, currentMode;
@@ -37,6 +37,7 @@ public class Ant : MonoBehaviour
 
     public void setMode(Mode m)
     {
+        if (myMode.Equals(Mode.guard) && !m.Equals(Mode.guard)) queen.numOnGuard--;
         myMode = m;
 
         if(currentMode!= null) StopCoroutine(currentMode);
@@ -117,6 +118,24 @@ public class Ant : MonoBehaviour
         transform.Rotate(randomDirection);
 
         StartCoroutine(idle());
+    }
+
+    public void guard()
+    {
+        StartCoroutine(guardCoroutine());
+    }
+
+    private IEnumerator guardCoroutine()
+    {
+        setMode(Mode.guard);
+        Vector3 guardDest = Random.insideUnitCircle * 1 - Random.insideUnitCircle * 0.5f;
+        bool[] moveDone = new bool[1];
+        setDestination(guardDest, moveDone);
+        yield return new WaitUntil(() => moveDone[0]);
+
+        //transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        Debug.Log("guarding");
+        queen.numOnGuard++;
     }
 
     public void sendForSearch(int level)
