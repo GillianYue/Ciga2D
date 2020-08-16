@@ -89,34 +89,38 @@ public class DisasterManager : MonoBehaviour
         {
             case 0:
                 disasterNote.SetActive(true);
+                disasterNote.GetComponent<Animator>().Play("enemyNote");
+                disasterNote.GetComponent<AudioSource>().Play();
                 yield return new WaitForSeconds(1.5f);
                 disasterNote.SetActive(false);
 
                 GameObject boot = Instantiate(bootPrefab, new Vector3(x, y, 0), Quaternion.identity);
-                camAnim.SetTrigger("vert");
-                Debug.Log("boot!");
+                camAnim.SetTrigger("vert"); //cam shake
 
                 wipeOutNumAnts(0.5f);
                 break;
 
             case 1:
                 disasterNote.SetActive(true);
+                disasterNote.GetComponent<Animator>().Play("enemyNote");
+                disasterNote.GetComponent<AudioSource>().Play();
                 yield return new WaitForSeconds(1.5f);
                 disasterNote.SetActive(false);
 
                 GameObject storm = Instantiate(stormPrefab, new Vector3(x, y, 0), Quaternion.identity);
-                Debug.Log("storm!");
                 camAnim.SetTrigger("horiz");
                 wipeOutNumAnts(0.3f);
                 break;
 
             case 2:
-                enemyNote.SetActive(false);
-                yield return new WaitForSeconds(1.5f);
                 enemyNote.SetActive(true);
+                enemyNote.GetComponent<Animator>().Play("enemyNote");
+                enemyNote.GetComponent<AudioSource>().Play(); 
+                yield return new WaitForSeconds(1.5f);
+                enemyNote.SetActive(false);
+                queen.animForSeconds(3, 3.0f);
 
                 spawnEnemyAntWave();
-                Debug.Log("enemy ants!");
                 break;
 
 

@@ -128,7 +128,7 @@ public class Ant : MonoBehaviour
     private IEnumerator guardCoroutine()
     {
         setMode(Mode.guard);
-        Vector3 guardDest = Random.insideUnitCircle * 1 - Random.insideUnitCircle * 0.5f;
+        Vector3 guardDest = Random.insideUnitCircle * 1.5f;
         bool[] moveDone = new bool[1];
         setDestination(guardDest, moveDone);
         yield return new WaitUntil(() => moveDone[0]);

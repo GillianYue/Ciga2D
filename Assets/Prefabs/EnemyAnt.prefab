@@ -53,6 +53,7 @@ MonoBehaviour:
   cornerSE: {x: 0, y: 0, z: 0}
   myAnim: {fileID: 266208602}
   mySprite: {fileID: 832714935621079555}
+  fade: {fileID: 368966463382108304}
 --- !u!114 &368966463382108304
 MonoBehaviour:
   m_ObjectHideFlags: 0

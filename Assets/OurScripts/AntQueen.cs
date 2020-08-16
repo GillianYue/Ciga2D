@@ -29,6 +29,9 @@ public class AntQueen : MonoBehaviour
 
     public bool active = false;
 
+    public Animator myAnim;
+    private bool animCheck;
+
     void Start()
     {
 
@@ -37,6 +40,7 @@ public class AntQueen : MonoBehaviour
         spawnMaxX = spawnBounds.bounds.max.x; spawnMaxY = spawnBounds.bounds.max.y;
 
         sendSlider.minValue = 1;
+        animCheck = true;
     }
 
     void Update()
@@ -46,6 +50,14 @@ public class AntQueen : MonoBehaviour
             float f = sanRate();
             sanBar.fillAmount = f;
             sanPercentageTxt.text = f * 100 + "%";
+
+            if (animCheck)
+            {
+                if (f < 0.2f) myAnim.SetInteger("state", 2);
+                else if (f > 0.8f) myAnim.SetInteger("state", 1);
+                else myAnim.SetInteger("state", 0);
+            }
+
             sanMaxTxt.text = (int)sanMax + "";
             numAntsTxt.text = numColonyAnts + "";
             numAntsNestTxt.text = numColonyAnts - numAway + "";
@@ -67,6 +79,14 @@ public class AntQueen : MonoBehaviour
         StartCoroutine(sanNaturalDecline());
         StartCoroutine(spawnAntsNatural());
 
+    }
+
+    public IEnumerator animForSeconds(int index, float sec)
+    {
+        animCheck = false;
+        myAnim.SetInteger("state", index);
+        yield return new WaitForSeconds(sec);
+        animCheck = true;
     }
 
     IEnumerator sanNaturalDecline()

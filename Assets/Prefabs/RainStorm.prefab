@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5706019280144183600}
   - component: {fileID: 7451833797058277059}
   m_Layer: 0
-  m_Name: Stomp
+  m_Name: RainStorm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,7 +44,7 @@ Animator:
   m_GameObject: {fileID: 74028607125992777}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ae0c5f56119a9804dac7102ab70cfb34, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2ece7b11ca8a6004ba37017dfa81213f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -78,9 +78,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ad3b27bf44d8bdb4aae25e77ceac8d49, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3f848ea8875cfb3459d99dc232b2ceb0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.834
+  m_Volume: 0.52
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -234,7 +234,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 28d7ea2a07534be4a9e1d29987b1db7f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d81ad3271c37a0c4bb9032038de32ecc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
