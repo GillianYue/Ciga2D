@@ -218,6 +218,7 @@ public class Ant : MonoBehaviour
 
         moveDone[0] = false;
         setDestination(spawnLocation, moveDone);
+        gatherManager.startReturn();
         yield return new WaitUntil(() => moveDone[0]);
 
         if (myPackage != null) myPackage.GetComponent<disappear>().slowDisappear(queen);
@@ -234,4 +235,10 @@ public class Ant : MonoBehaviour
         currentMoveTo = moveTo(don);
         StartCoroutine(currentMoveTo);
     }
-}
+
+    void OnDestroy()
+    {
+        if (myMode.Equals(Mode.guard)) queen.numOnGuard--;
+    }
+
+    }

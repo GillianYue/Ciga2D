@@ -32,6 +32,10 @@ public class AntQueen : MonoBehaviour
     public Animator myAnim;
     private bool animCheck;
 
+    private float sanSecondsAgo = 100;
+    public AudioSource glad, glad2, sigh, mad;
+    public bool audioCoolDown;
+
     void Start()
     {
 
@@ -51,9 +55,15 @@ public class AntQueen : MonoBehaviour
             sanBar.fillAmount = f;
             sanPercentageTxt.text = f * 100 + "%";
 
+            StartCoroutine(delayRecordSanValue(san));
+
             if (animCheck)
             {
-                if (f < 0.2f) myAnim.SetInteger("state", 2);
+                if (f < 0.2f)
+                {
+                    myAnim.SetInteger("state", 2);
+                    sigh.Play();
+                }
                 else if (f > 0.8f) myAnim.SetInteger("state", 1);
                 else myAnim.SetInteger("state", 0);
             }
@@ -70,6 +80,13 @@ public class AntQueen : MonoBehaviour
 
             debugTxt.text = groups.Count + "";
         }
+
+        if(san - sanSecondsAgo > 10)
+        {
+           // audioCoolDown = true;
+            if (Random.value > 0.5f) glad.Play();
+            else glad2.Play();
+        }
     }
 
     public void startGame()
@@ -79,6 +96,12 @@ public class AntQueen : MonoBehaviour
         StartCoroutine(sanNaturalDecline());
         StartCoroutine(spawnAntsNatural());
 
+    }
+
+    IEnumerator delayRecordSanValue(float val)
+    {
+        yield return new WaitForSeconds(2);
+        sanSecondsAgo = val;
     }
 
     public IEnumerator animForSeconds(int index, float sec)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DisasterManager : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class DisasterManager : MonoBehaviour
 
     public GameObject enemyNote, disasterNote;
     public Animator camAnim;
+
+    public Text infoTxt;
 
     void Start()
     {
@@ -118,7 +121,8 @@ public class DisasterManager : MonoBehaviour
                 enemyNote.GetComponent<AudioSource>().Play(); 
                 yield return new WaitForSeconds(1.5f);
                 enemyNote.SetActive(false);
-                queen.animForSeconds(3, 3.0f);
+                StartCoroutine(queen.animForSeconds(3, 3.0f));
+                queen.mad.Play();
 
                 spawnEnemyAntWave();
                 break;
@@ -170,7 +174,14 @@ public class DisasterManager : MonoBehaviour
 
         queen.numColonyAnts -= number; //if reaching here, means there's more ants than required to wipe out
 
+        StartCoroutine(infoTextLast("损失了" + count + "只蚂蚁！！", 2));
+    }
 
+    public IEnumerator infoTextLast(string content, float time)
+    {
+        infoTxt.text = content;
+        yield return new WaitForSeconds(time);
+        infoTxt.text = "";
     }
 
     public void spawnEnemyAntWave()

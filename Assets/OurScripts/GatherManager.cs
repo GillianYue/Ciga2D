@@ -11,6 +11,9 @@ public class GatherManager : MonoBehaviour
     public Slider sendSlider;
     public AntQueen queen;
 
+    public Text infoTxt;
+    public bool waveNotifier;
+
     public GameObject[] packagePrefabs; 
     void Start()
     {
@@ -55,6 +58,24 @@ public class GatherManager : MonoBehaviour
   
         }
 
+    }
+
+    public void startReturn()
+    {
+        if (!waveNotifier)
+        {
+            waveNotifier = true;
+            StartCoroutine(returnNotify());
+        }
+    }
+
+    public IEnumerator returnNotify()
+    {
+        yield return new WaitForSeconds(2);
+        infoTxt.text = "外出探索的蚂蚁归来了！";
+        yield return new WaitForSeconds(2);
+        infoTxt.text = "";
+        waveNotifier = false;
     }
 
     public void assignGuard()
